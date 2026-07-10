@@ -3,8 +3,29 @@ from discord import app_commands
 import os
 from dotenv import load_dotenv
 
+from flask import Flask
+from threading import Thread
+
 load_dotenv()
 
+# Web server section ---
+app = Flask('')
+
+@app.route('/')
+def home():
+    return 'Bot is still alive and running :D'
+
+def run():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t =Thread(target=run)
+    t.start()
+
+keep_alive()
+
+# Bot section ---
 class botPermission(discord.Client):
     def __init__(self):
         super().__init__(intents=discord.Intents.default())
@@ -26,14 +47,14 @@ class CTFWriteupModal(discord.ui.Modal, title='Writeup CTF'):
     info = discord.ui.TextInput(
         label='Platform',
         placeholder='https://...',
-        style=discord.TextStyle.long,
+        style=discord.TextStyle.short,
         required=True
     )
         
     infoDifficulty = discord.ui.TextInput(
         label='Difficulty',
         placeholder='Easy',
-        style=discord.TextStyle.long,
+        style=discord.TextStyle.short,
         required=True
     )
     
@@ -53,7 +74,7 @@ class CTFWriteupModal(discord.ui.Modal, title='Writeup CTF'):
     
     async def on_submit(self, interaction: discord.Interaction):
         markdown_template = f"""
-```
+```markdown
 # {self.challenge_name.value}
 
 ## Challenge Info
