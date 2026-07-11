@@ -79,8 +79,8 @@ class CTFWriteupModal(discord.ui.Modal, title='Writeup CTF'):
 
 ## Challenge Info
 
-- {self.info.value}
-- {self.infoDifficulty.value}
+- Platform: {self.info.value}
+- Difficulty: {self.infoDifficulty.value}
 
 ## Objective
 
@@ -88,9 +88,15 @@ class CTFWriteupModal(discord.ui.Modal, title='Writeup CTF'):
 
 ## Files
 
+-
+
 ## Flow
 
+-
+
 ## cmd
+
+-
 
 ## Flag
 
